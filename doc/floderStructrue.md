@@ -7,12 +7,12 @@ src 源码
     constant 常量
     controller mvc中的controller层
     dao   dataObject 数据对象类
-    dto   
+    dto  前端数据需求映射类
     entity 实体类，直接对象
     enums 枚举类
     exception 异常类
     service  mvc中的servie层
     util 工具方法类
-    vo 
+    vo 数据转换类
   resources 项目配置
 ```
