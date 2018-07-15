@@ -30,7 +30,6 @@ public class AdminUser {
   /**
    * 用户真实名字 【必填】
    */
-  
   private String realName;
 
   /**

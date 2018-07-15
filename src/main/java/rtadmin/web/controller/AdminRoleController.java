@@ -1,4 +1,4 @@
-package rtadmin.controller;
+package rtadmin.web.controller;
 
 
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,14 +17,13 @@ import rtadmin.servcie.AdminRoleService;
 import rtadmin.vo.ResultVO;
 
 @RestController
-@RequestMapping("/admin/role")
 @Slf4j
 public class AdminRoleController {
 
   @Autowired
   private AdminRoleService AdminRoleService;
 
-  @GetMapping("/list")
+  @RequestMapping(value = "/admin/role", method = RequestMethod.GET )
   public ResultVO<List<AdminRole>> list(@RequestParam(value = "page", defaultValue = "0") Integer page,
                                         @RequestParam(value = "size", defaultValue = "50") Integer size) {
     PageRequest request = PageRequest.of(page, size);
