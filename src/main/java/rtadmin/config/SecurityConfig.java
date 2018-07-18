@@ -3,6 +3,7 @@ package rtadmin.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import rtadmin.servcie.impl.AuthProviderImpl;
 import rtadmin.web.filter.JWTAuthenticationFilter;
 import rtadmin.web.filter.JWTLoginFilter;
 
@@ -46,15 +48,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        // 所有 /users/signup 的POST请求 都放行
-        .antMatchers(HttpMethod.POST, "/admin/user").permitAll()
+        .antMatchers(HttpMethod.POST, "/admin/user").permitAll() // 设置不验证 route 的POST请求 都放行
         .anyRequest().authenticated()  // 所有请求需要身份认证
         .and()
         .addFilter(new JWTLoginFilter(authenticationManager()))
         .addFilter(new JWTAuthenticationFilter(authenticationManager()))
         .logout() // 默认注销行为为logout，可以通过下面的方式来修改
         .logoutUrl("/logout")
-        .logoutSuccessUrl("/login")
+        // .logoutSuccessUrl("/login")
         .permitAll();// 设置注销成功后跳转页面，默认是跳转到登录页面;
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // 使用自定义身份验证组件
+        auth.authenticationProvider(new AuthProviderImpl(userDetailsService, bCryptPasswordEncoder));
     }
 }

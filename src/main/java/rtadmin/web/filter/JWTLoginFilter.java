@@ -39,10 +39,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         try {
           LoginUser user = new ObjectMapper().readValue(req.getInputStream(), LoginUser.class);
           return authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-              user.getUsername(),
-              user.getPassword(),
-              new ArrayList<>())
+            new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>())
           );
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -60,8 +57,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         try {
             token = Jwts.builder()
                     .setSubject(auth.getName())
-                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 1000)) // 设置过期时间 60秒
-//                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000)) // 设置过期时间
+                   .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000)) // 设置过期时间
                     .signWith(SignatureAlgorithm.HS512, "rtadmin") //采用什么算法是可以自己选择的，不一定非要采用HS512
                     .compact();
             res.addHeader("Authorization", "Bearer " + token);

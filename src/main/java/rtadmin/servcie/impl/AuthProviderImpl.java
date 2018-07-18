@@ -1,5 +1,7 @@
 package rtadmin.servcie.impl;
 
+import java.util.ArrayList;
+
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,9 +43,10 @@ public class AuthProviderImpl implements AuthenticationProvider {
       throw new BadCredentialsException("密码错误");
     }
 
-     // 这里设置权限和角色
-     Authentication auth = new UsernamePasswordAuthenticationToken(username, password);
-     return auth;
+    // 这里设置权限和角色
+
+    Authentication auth = new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
+    return auth;
 	}
 
   /**

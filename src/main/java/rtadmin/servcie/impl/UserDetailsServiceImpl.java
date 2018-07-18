@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import rtadmin.dao.LoginUserRepository;
 import rtadmin.entity.LoginUser;
 
-import static java.util.Collections.emptyList;
+import java.util.ArrayList;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -26,6 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       if(user == null){
           throw new UsernameNotFoundException(username);
       }
-      return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), emptyList());
+      return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
   }
 }
