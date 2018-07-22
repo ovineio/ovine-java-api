@@ -6,10 +6,8 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 @Data
-@Slf4j
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultVO<T> {
   public static Integer CODE_OK = 0;
@@ -17,7 +15,6 @@ public class ResultVO<T> {
 
   public static final String DEFAULT_SUCCESS_MSG = "OK";
   public static final String DEFAULT_ERROR_MSG = "ERROR";
-
 
   /** 返回 code 值 */
   @NotEmpty

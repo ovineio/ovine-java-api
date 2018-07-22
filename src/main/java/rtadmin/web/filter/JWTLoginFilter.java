@@ -3,6 +3,7 @@ package rtadmin.web.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import rtadmin.entity.LoginUser;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +26,8 @@ import java.util.Date;
  * attemptAuthentication ：接收并解析用户凭证。
  * successfulAuthentication ：用户成功登录后，这个方法会被调用，我们在这个方法里生成token。
  */
+
+@Slf4j
 public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
@@ -52,14 +55,15 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
+        log.info("login auth{}", auth);
         // builder the token
-        String token = null;
+        String token = "";
         try {
             token = Jwts.builder()
-                    .setSubject(auth.getName())
-                   .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000)) // 设置过期时间
-                    .signWith(SignatureAlgorithm.HS512, "rtadmin") //采用什么算法是可以自己选择的，不一定非要采用HS512
-                    .compact();
+                      .setSubject(auth.getName())
+                      .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000)) // 设置过期时间
+                      .signWith(SignatureAlgorithm.HS512, "rtadmin") //采用什么算法是可以自己选择的，不一定非要采用HS512
+                      .compact();
             res.addHeader("Authorization", "Bearer " + token);
         } catch (Exception e) {
             e.printStackTrace();
