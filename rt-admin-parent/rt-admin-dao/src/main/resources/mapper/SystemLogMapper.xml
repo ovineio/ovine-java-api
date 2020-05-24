@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igroupes.rtadmin.mapper.SystemLogMapper">
+
+    <select id="getSystemLogList" resultType="com.igroupes.rtadmin.entity.SystemLogEntity">
+        select *
+        from system_log
+        where is_del = 0
+        and user_id in ( -- 只能查看自己和直属下级的日志
+          select user_id
+          from system_user
+          where user_id = #{query.userId} and parent_id = #{query.userId}
+          group by user_id
+        )
+        <if test="query.actionAddr!=null and query.actionAddr!=''">
+            and action_addr = #{query.actionAddr}
+        </if>
+        <if test="query.startTime!=null and query.startTime!=''">
+            and add_time >= #{query.startTime}
+        </if>
+        <if test="query.endTime!=null and query.endTime!=''">
+            and add_time &lt;= #{query.endTime}
+        </if>
+        <if test="query.status!=null">
+            and `result` = #{query.status}
+        </if>
+        <if test="query.handlerFilter!=null and query.handlerFilter!=''">
+            and (user_id like CONCAT(CONCAT('%',#{query.handlerFilter}), '%') or nickname like CONCAT(CONCAT('%',#{query.handlerFilter}), '%') )
+        </if>
+        order by add_time desc
+    </select>
+
+
+</mapper>

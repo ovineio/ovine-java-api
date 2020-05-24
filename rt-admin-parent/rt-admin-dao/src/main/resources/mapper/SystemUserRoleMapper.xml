@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igroupes.rtadmin.mapper.SystemUserRoleMapper">
+
+
+
+    <select id="getRoleById" resultType="com.igroupes.rtadmin.entity.SystemRoleEntity">
+        select
+        b.*
+        from system_user_role a
+        join system_role b
+        on a.role_id = b.id
+        where a.user_id = #{userId} and a.is_del = 0 and b.is_del = 0
+    </select>
+
+
+    <select id="getFilterUserPage" resultType="com.igroupes.rtadmin.result.SystemUserResult">
+        select
+        a.*,c.id role_id , c.name role_name
+        from system_user a
+        left join system_user_role b
+        on a.id = b.user_id
+        left join system_role c
+        on b.role_id = c.id
+        where a.is_del = 0 and (b.is_del = 0 or b.is_del is null)  and (c.is_del = 0 or c.is_del is null) and a.parent_id = #{userId}
+        <if test="filter!=null and filter!=''">
+            and (a.id like CONCAT(CONCAT('%',#{filter}), '%') or a.username like CONCAT(CONCAT('%',#{filter}), '%')
+            or a.nickname like CONCAT(CONCAT('%',#{filter}), '%') )
+        </if>
+        <if test="roleIds!=null and roleIds!=''">
+            and c.id in (#{roleIds})
+        </if>
+    </select>
+
+    <select id="deleteUserList" >
+          update system_user_role set `is_del` = now()
+          where  `is_del` = 0 and  user_id in
+        <foreach collection="userIds" item="item" index="index" open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igroupes.rtadmin.mapper.SystemRoleMapper">
+
+    <select id="getChildPermList" resultType="com.igroupes.rtadmin.entity.SystemPermissionEntity">
+        select
+         c.*
+        from system_role a
+        left join system_role_perm  b
+        on a.id = b.role_id
+        left join system_perm c
+        on b.perm_id = c.id
+        where a.is_del = 0 and (b.is_del = 0 or b.is_del is null) and (c.is_del = 0 or c.is_del is null)
+          and parent_chain like CONCAT(#{curParentChain}, '%')
+    </select>
+
+    <select id="getFilterRole" resultType="com.igroupes.rtadmin.entity.SystemRoleEntity">
+        select
+        *
+        from system_role
+        where add_user = #{userId} and is_del = 0
+        <if test="filter!=null and filter!=''">
+            and (id like CONCAT(CONCAT('%',#{filter}), '%') or name like CONCAT(CONCAT('%',#{filter}), '%') )
+        </if>
+    </select>
+
+    <select id="getChildRoleList" resultType="com.igroupes.rtadmin.entity.SystemRoleEntity">
+        select
+        *
+        from system_role
+        where  is_del = 0 and parent_chain like CONCAT(#{curParentChain}, '%')
+    </select>
+
+
+</mapper>

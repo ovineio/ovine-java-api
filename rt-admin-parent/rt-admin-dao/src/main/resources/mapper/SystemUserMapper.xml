@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igroupes.rtadmin.mapper.SystemUserMapper">
+
+    <select id="getUserChain" resultType="com.igroupes.rtadmin.entity.SystemUserEntity">
+        select *
+        from system_user
+        where is_del = 0 and parent_chain like CONCAT(#{parentChain}, '%');
+    </select>
+
+
+</mapper>
