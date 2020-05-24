@@ -8,7 +8,7 @@
         (
             -- 每天注册人数
             SELECT SUBSTR(add_time,1,10) pt , COUNT(1) register_count , 0 login_count, 0 show_count, 0 show_user_count,0 user_count
-            FROM SYSTEM_USER
+            FROM system_user
             where 1 = 1
             <if test="startDate!=null and startDate!=''">
                 and SUBSTR(add_time,1,10) >= #{startDate}
@@ -62,11 +62,11 @@
 
             SELECT a.pt, 0 register_count, 0 login_count,0 show_count  , 0 show_user_count, SUM(b.cnt) user_count
             FROM (
-                SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM SYSTEM_USER
+                SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM system_user
                 GROUP BY pt
             ) a
             JOIN  (
-                SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM SYSTEM_USER
+                SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM system_user
                 GROUP BY pt
             ) b
             ON a.pt > b.pt
@@ -83,7 +83,7 @@
     </select>
 
     <select id="getUserCount" resultType="java.lang.Integer">
-        SELECT  COUNT(id) cnt FROM SYSTEM_USER
+        SELECT  COUNT(id) cnt FROM system_user
         where 1 = 1
         <if test="endDate!=null and endDate!=''">
             and SUBSTR(add_time,1,10) &lt; #{endDate}
