@@ -452,6 +452,10 @@ public class UserServiceImpl implements IUserService {
             log.error("userId :{} is not exists", userId);
             throw new RtAdminException(ErrorCode.USER_NOT_EXISTS);
         }
+        if(userInfo.getId().equals(userId)){
+            // 如果是自身查询，直接返回
+            return ResultVO.success(getByUser(userEntity));
+        }
         if (!isHigherLevel(userInfo.getId(), userId)) {
             log.error("userId:{}必须是userId:{}的直接/间隔创建者,才有权限查看用户", userInfo.getId(), userId);
             throw new RtAdminException(ErrorCode.PERMISSION_DENIED);

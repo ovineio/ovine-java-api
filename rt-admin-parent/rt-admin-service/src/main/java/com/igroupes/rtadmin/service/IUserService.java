@@ -35,6 +35,7 @@ public interface IUserService  {
 
     boolean isHigherLevel(Long higherId, Long curId);
 
+
     ResultVO userTree(UserInfo userInfo);
 
     ResultVO demoRegister(@Valid UserRegisterRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse);
