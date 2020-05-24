@@ -65,20 +65,20 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResultVO login(UserLoginRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 //        // 校验验证码
-//        String cookieValue = CookieUtils.getCookieValue(httpRequest, RtAdminConstant.VERIFY_CODE_COOKIE_KEY);
-//        if (StringUtils.isBlank(cookieValue)) {
-//            log.error("cookie没有获取到，无法校验验证码");
-//            return ResultVO.error(ErrorCode.VERIFY_CODE_ERROR);
-//        }
-//        // 删除cookie
-//        CookieUtils.deleteCookie(httpRequest, httpResponse, RtAdminConstant.VERIFY_CODE_COOKIE_KEY);
-//        Long codeKey = Long.valueOf(cookieValue);
-//        if (!verifyCodeManage.isRightVerifyCode(codeKey, request.getCode())) {
-//            log.error("except: {} ,but: {}", codeKey, request.getCode());
-//            verifyCodeManage.deleteVerifyCode(codeKey);
-//            return ResultVO.error(ErrorCode.VERIFY_CODE_ERROR);
-//        }
-//        verifyCodeManage.deleteVerifyCode(codeKey);
+        String cookieValue = CookieUtils.getCookieValue(httpRequest, RtAdminConstant.VERIFY_CODE_COOKIE_KEY);
+        if (StringUtils.isBlank(cookieValue)) {
+            log.error("cookie没有获取到，无法校验验证码");
+            return ResultVO.error(ErrorCode.VERIFY_CODE_ERROR);
+        }
+        // 删除cookie
+        CookieUtils.deleteCookie(httpRequest, httpResponse, RtAdminConstant.VERIFY_CODE_COOKIE_KEY);
+        Long codeKey = Long.valueOf(cookieValue);
+        if (!verifyCodeManage.isRightVerifyCode(codeKey, request.getCode())) {
+            log.error("except: {} ,but: {}", codeKey, request.getCode());
+            verifyCodeManage.deleteVerifyCode(codeKey);
+            return ResultVO.error(ErrorCode.VERIFY_CODE_ERROR);
+        }
+        verifyCodeManage.deleteVerifyCode(codeKey);
         SystemUserEntity userFind = new SystemUserEntity();
         userFind.setUsername(request.getUsername());
         Wrapper<SystemUserEntity> userWrapper = new QueryWrapper<>(userFind);
