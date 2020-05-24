@@ -63,6 +63,11 @@ public class SystemController {
         return userService.deleteUser(userInfo, id);
     }
 
+    @GetMapping("/user/item/{id}")
+    public ResultVO getUser(UserInfo userInfo, @PathVariable Long id) {
+        return userService.getUser(userInfo, id);
+    }
+
     @GetMapping("/user/item")
     public ResultVO getUserList(UserInfo userInfo, UserInfoPageRequest request) {
         PageDTOUtil.fixPageDTO(request);

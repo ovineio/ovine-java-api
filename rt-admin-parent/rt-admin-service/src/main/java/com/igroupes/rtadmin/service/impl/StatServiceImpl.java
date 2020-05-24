@@ -57,7 +57,7 @@ public class StatServiceImpl implements IStatService {
                 request.setStartDate(URLDecoder.decode(request.getStartDate(), RtAdminConstant.URL_DECODE_CHARSET));
             }
             if (StringUtils.isNotBlank(request.getEndDate())) {
-                request.setEndDate(URLDecoder.decode(request.getStartDate(), RtAdminConstant.URL_DECODE_CHARSET));
+                request.setEndDate(URLDecoder.decode(request.getEndDate(), RtAdminConstant.URL_DECODE_CHARSET));
             }
         } catch (Exception ex) {
             return ResultVO.error(ErrorCode.PARAM_ERROR);
@@ -65,8 +65,8 @@ public class StatServiceImpl implements IStatService {
 
         // 默认最近7天
         if (StringUtils.isBlank(request.getStartDate()) && StringUtils.isBlank(request.getEndDate())) {
-            request.setEndDate(DateUtils.getDate(DateUtils.nextDay(1), DateUtils.DATE_FORMAT));
-            request.setStartDate(DateUtils.getDate(DateUtils.nextDay(-6), DateUtils.DATE_FORMAT));
+            request.setEndDate(DateUtils.getDate());
+            request.setStartDate(DateUtils.getDate(DateUtils.nextDay(-7), DateUtils.DATE_FORMAT));
         }
         if (StringUtils.isBlank(request.getEndDate())) {
             request.setEndDate(DateUtils.getDate());
@@ -141,8 +141,9 @@ public class StatServiceImpl implements IStatService {
      * @param userCount
      */
     private void fillStatData(List<StatResult> data, Date start, Date end, int userCount) {
-        while (!DateUtils.formatDate(start = DateUtils.addDays(start, 1)).equals(DateUtils.formatDate(end))) {
+        while (!DateUtils.formatDate(start).equals(DateUtils.formatDate(end))) {
             data.add(new StatResult(DateUtils.formatDate(start), 0, 0, userCount, 0, 0));
+            start = DateUtils.addDays(start, 1);
         }
     }
 

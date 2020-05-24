@@ -139,14 +139,14 @@ public class UserServiceImpl implements IUserService {
             log.warn("修改密码和原始密码都是：{}", changePasswordRequest.getOldPassword());
             return ResultVO.error(ErrorCode.PASSWORD_REPEAT);
         }
-        SystemUserEntity userDO = new SystemUserEntity();
-        BeanUtils.copyProperties(userInfo, userDO);
-        UserUtils.checkPassword(userDO.getPassword(), userDO.getSalt(), changePasswordRequest.getOldPassword());
+        SystemUserEntity userEntity = new SystemUserEntity();
+        BeanUtils.copyProperties(userInfo, userEntity);
+        UserUtils.checkPassword(userEntity.getPassword(), userEntity.getSalt(), changePasswordRequest.getOldPassword());
         // 如果密码校验成功
         String passwd = UserUtils.genPassword(changePasswordRequest.getPassword(), userInfo.getSalt());
         userInfo.setPassword(passwd);
-        userDO.setPassword(passwd);
-        systemUserService.updateById(userDO);
+        userEntity.setPassword(passwd);
+        systemUserService.updateById(userEntity);
         deleteToken(request, userInfo);
         return ResultVO.success();
     }
@@ -154,18 +154,18 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResultVO addUser(UserInfo userInfo, UserAddRequest request) {
         checkNewUser(userInfo, request);
-        SystemUserEntity userDO = new SystemUserEntity();
-        userDO.setAvatar(request.getAvatar());
-        userDO.setDesc(request.getDesc());
-        userDO.setNickname(request.getNickname());
-        userDO.setParentId(userInfo.getId());
+        SystemUserEntity userEntity = new SystemUserEntity();
+        userEntity.setAvatar(request.getAvatar());
+        userEntity.setDesc(request.getDesc());
+        userEntity.setNickname(request.getNickname());
+        userEntity.setParentId(userInfo.getId());
         String salt = UserUtils.genSalt();
-        userDO.setPassword(UserUtils.genPassword(request.getPassword(), salt));
-        userDO.setSalt(salt);
-        userDO.setUsername(request.getUsername());
-        userDO.setParentChain(genChildLevelParentChain(userInfo.getId(), userInfo.getParentChain()));
-        if (!systemUserService.save(userDO)) {
-            log.error("插入用户信息:{}失败", userDO);
+        userEntity.setPassword(UserUtils.genPassword(request.getPassword(), salt));
+        userEntity.setSalt(salt);
+        userEntity.setUsername(request.getUsername());
+        userEntity.setParentChain(genChildLevelParentChain(userInfo.getId(), userInfo.getParentChain()));
+        if (!systemUserService.save(userEntity)) {
+            log.error("插入用户信息:{}失败", userEntity);
             throw new RtAdminException(ErrorCode.SYSTEM_ERROR);
         } else {
             return ResultVO.success();
@@ -175,10 +175,10 @@ public class UserServiceImpl implements IUserService {
     private void checkNewUser(UserInfo userInfo, UserAddRequest request) {
         UserUtils.checkPasswordLength(request.getPassword());
         // 校验用户名是不是存在
-        SystemUserEntity userDOFind = new SystemUserEntity();
-        userDOFind.setUsername(request.getUsername());
-        SystemUserEntity userDO = systemUserService.getOne(new QueryWrapper<>(userDOFind));
-        if (userDO != null) {
+        SystemUserEntity userEntityFind = new SystemUserEntity();
+        userEntityFind.setUsername(request.getUsername());
+        SystemUserEntity userEntity = systemUserService.getOne(new QueryWrapper<>(userEntityFind));
+        if (userEntity != null) {
             throw new RtAdminException(ErrorCode.USER_EXISTS);
         }
     }
@@ -186,11 +186,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResultVO updateUser(UserInfo userInfo, Long userId, UserUpdateRequest request) {
         // 只有创建者才有权限
-        if (userId == null) {
-            throw new RtAdminException(ErrorCode.PARAM_ERROR);
-        }
-        SystemUserEntity userDO = systemUserService.getById(userId);
-        if (userDO == null) {
+        SystemUserEntity userEntity = systemUserService.getById(userId);
+        if (userEntity == null) {
             log.error("userId :{} is not exists", userId);
             throw new RtAdminException(ErrorCode.USER_NOT_EXISTS);
         }
@@ -199,18 +196,18 @@ public class UserServiceImpl implements IUserService {
             throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
         }
 
-        userDO.setUsername(request.getUsername());
-        userDO.setNickname(request.getNickname());
-        userDO.setDesc(request.getDesc());
-        userDO.setAvatar(request.getAvatar());
+        userEntity.setUsername(request.getUsername());
+        userEntity.setNickname(request.getNickname());
+        userEntity.setDesc(request.getDesc());
+        userEntity.setAvatar(request.getAvatar());
         if (StringUtils.isNotBlank(request.getPassword())) {
-            String newPassword = UserUtils.genPassword(request.getPassword(), userDO.getSalt());
-            if (!newPassword.equals(userDO.getPassword())) {
-                userDO.setPassword(newPassword);
+            String newPassword = UserUtils.genPassword(request.getPassword(), userEntity.getSalt());
+            if (!newPassword.equals(userEntity.getPassword())) {
+                userEntity.setPassword(newPassword);
             }
         }
         // 更新
-        systemUserService.updateById(userDO);
+        systemUserService.updateById(userEntity);
         return ResultVO.success();
     }
 
@@ -255,19 +252,19 @@ public class UserServiceImpl implements IUserService {
             throw new RtAdminException(ErrorCode.PARAM_ERROR);
         }
         Page<SystemUserResult> page = new Page<>(request.getPage(), request.getSize());
-        List<SystemUserResult> userDOPage = systemUserRoleService.getFilterUserList(page, userInfo.getId(), request.getFilter(), request.getRoleIds());
-        if (CollectionUtils.isEmpty(userDOPage)) {
-            userDOPage = ListUtils.EMPTY_LIST;
+        List<SystemUserResult> userEntityPage = systemUserRoleService.getFilterUserList(page, userInfo.getId(), request.getFilter(), request.getRoleIds());
+        if (CollectionUtils.isEmpty(userEntityPage)) {
+            userEntityPage = ListUtils.EMPTY_LIST;
         }
-        page.setRecords(userDOPage);
+        page.setRecords(userEntityPage);
         return ResultVO.success(getUserListByPage(page));
     }
 
-    public UserInfoPageResponse getUserListByPage(Page<SystemUserResult> userDOPage) {
+    public UserInfoPageResponse getUserListByPage(Page<SystemUserResult> userEntityPage) {
         UserInfoPageResponse userInfoPageResponse = new UserInfoPageResponse();
-        PageDTOUtil.setPageResponse(userDOPage, userInfoPageResponse);
+        PageDTOUtil.setPageResponse(userEntityPage, userInfoPageResponse);
 
-        List<UserInfoPageResponse.UserInfoPageResponseDetail> list = userDOPage.getRecords().stream().map(record -> {
+        List<UserInfoPageResponse.UserInfoPageResponseDetail> list = userEntityPage.getRecords().stream().map(record -> {
             UserInfoPageResponse.UserInfoPageResponseDetail detail = new UserInfoPageResponse.UserInfoPageResponseDetail();
             detail.setAvatar(record.getAvatar());
             detail.setCreateTime(record.getAddTime());
@@ -378,11 +375,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResultVO updateInfo(UserInfo userInfo, UserBaseInfoRequest request) {
-        SystemUserEntity userDO = systemUserService.getById(userInfo.getId());
-        userDO.setAvatar(request.getAvatar());
-        userDO.setNickname(request.getNickname());
-        userDO.setSignature(request.getSignature());
-        systemUserService.updateById(userDO);
+        SystemUserEntity userEntity = systemUserService.getById(userInfo.getId());
+        userEntity.setAvatar(request.getAvatar());
+        userEntity.setNickname(request.getNickname());
+        userEntity.setSignature(request.getSignature());
+        systemUserService.updateById(userEntity);
         return ResultVO.success();
     }
 
@@ -400,7 +397,7 @@ public class UserServiceImpl implements IUserService {
         userEntityFind.setUsername(request.getUsername());
         SystemUserEntity systemUserEntity = systemUserService.getOne(new QueryWrapper<>(userEntityFind));
         if (systemUserEntity != null) {
-          return ResultVO.error(ErrorCode.USER_EXISTS);
+            return ResultVO.error(ErrorCode.USER_EXISTS);
         }
 
         systemUserEntity = new SystemUserEntity();
@@ -448,6 +445,38 @@ public class UserServiceImpl implements IUserService {
         return ResultVO.success(userResponse);
     }
 
+    @Override
+    public ResultVO getUser(UserInfo userInfo, Long userId) {
+        SystemUserEntity userEntity = systemUserService.getById(userId);
+        if (userEntity == null) {
+            log.error("userId :{} is not exists", userId);
+            throw new RtAdminException(ErrorCode.USER_NOT_EXISTS);
+        }
+        if (!isHigherLevel(userInfo.getId(), userId)) {
+            log.error("userId:{}必须是userId:{}的直接/间隔创建者,才有权限查看用户", userInfo.getId(), userId);
+            throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
+        }
+        return ResultVO.success(getByUser(userEntity));
+    }
+
+    private UserInfoPageResponse.UserInfoPageResponseDetail getByUser(SystemUserEntity userEntity) {
+        UserInfoPageResponse.UserInfoPageResponseDetail detail = new UserInfoPageResponse.UserInfoPageResponseDetail();
+
+        detail.setUpdateTime(userEntity.getUpdateTime());
+        detail.setUsername(userEntity.getUsername());
+        detail.setDesc(userEntity.getDesc());
+        detail.setId(userEntity.getId());
+        detail.setParentId(userEntity.getParentId());
+        detail.setNickname(userEntity.getNickname());
+        detail.setCreateTime(userEntity.getAddTime());
+        detail.setAvatar(userEntity.getAvatar());
+        SystemRoleEntity role = systemUserRoleService.getRoleById(userEntity.getId());
+        detail.setRoleName(role.getName());
+        detail.setRoleId(role.getId());
+        return detail;
+
+    }
+
     private String genChildLevelParentChain(Long userId, String userParentChain) {
         Requires.requireNonNull(userId, "user id");
         Requires.requireNonBlank(userParentChain, "parent chain");
@@ -457,9 +486,12 @@ public class UserServiceImpl implements IUserService {
 
     private List<Long> getParentUserIdList(Long userId) {
         Requires.requireNonNull(userId, "user id");
-        SystemUserEntity userDO = systemUserService.getById(userId);
-        Requires.requireNonNull(userDO, "user");
-        String parentChain = userDO.getParentChain();
+        SystemUserEntity userEntity = systemUserService.getById(userId);
+        if (userEntity == null) {
+            log.error("userId :{} is not exists", userId);
+            throw new RtAdminException(ErrorCode.USER_NOT_EXISTS);
+        }
+        String parentChain = userEntity.getParentChain();
         return Stream.of(StringUtils.split(parentChain, "-"))
                 .map(parentId -> Long.valueOf(parentId)).collect(Collectors.toList());
     }

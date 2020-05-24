@@ -38,4 +38,6 @@ public interface IUserService  {
     ResultVO userTree(UserInfo userInfo);
 
     ResultVO demoRegister(@Valid UserRegisterRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse);
+
+    ResultVO getUser(UserInfo userInfo, Long userId);
 }
