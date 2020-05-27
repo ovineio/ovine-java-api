@@ -66,7 +66,7 @@ public class SystemLogHandlerInterceptorAdapter extends HandlerInterceptorAdapte
         // 检查请求路径和方法
         List<String> pathMethodList = this.logExcludePathTrie.find(request.getServletPath());
         if(containsRequestMethod(request,pathMethodList)){
-            log.error("请求路径:{},请求方法:{}不需要记录系统日志", request.getServletPath(), requestMethod);
+            log.info("请求路径:{},请求方法:{}不需要记录系统日志", request.getServletPath(), requestMethod);
             return;
         }
         SystemLogEntity systemLogDO = new SystemLogEntity();
