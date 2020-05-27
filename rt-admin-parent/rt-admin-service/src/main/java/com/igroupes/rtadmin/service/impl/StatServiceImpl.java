@@ -107,9 +107,11 @@ public class StatServiceImpl implements IStatService {
         for (int i = 0; i < statList.size(); i++) {
             StatResult curStat = statList.get(i);
             // 修复第一个
-            if (i == 0 && curStat.getUserCount() == 0) {
-                statList.get(i).setUserCount(systemUserStatService.getUserCount(curStat.getDate()));
-                ret.add(curStat);
+            if (i == 0 ) {
+                if(curStat.getUserCount() == 0){
+                    statList.get(i).setUserCount(systemUserStatService.getUserCount(curStat.getDate()));
+                    ret.add(curStat);
+                }
                 continue;
             }
 
