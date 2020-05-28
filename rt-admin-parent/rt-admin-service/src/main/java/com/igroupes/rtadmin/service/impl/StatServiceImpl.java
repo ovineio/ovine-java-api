@@ -77,6 +77,12 @@ public class StatServiceImpl implements IStatService {
     private StatResponse getStatResponse(StatGetRequest request) {
         StatResponse statResponse = new StatResponse();
         List<StatResult> stat = fixStat(systemUserStatService.getStat(request.getStartDate(), request.getEndDate()), request.getStartDate(), request.getEndDate());
+        stat = stat.stream().sorted(new Comparator<StatResult>() {
+            @Override
+            public int compare(StatResult r1, StatResult r2) {
+                return r2.getDate().compareTo(r1.getDate());
+            }
+        }).collect(Collectors.toList());
         List<StatResponse.StatResponseDetail> detail = stat.stream().map(record -> {
             StatResponse.StatResponseDetail statResponseDetail = new StatResponse.StatResponseDetail();
             BeanUtils.copyProperties(record, statResponseDetail);
