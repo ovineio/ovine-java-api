@@ -255,7 +255,7 @@ public class UserServiceImpl implements IUserService {
         Page<SystemUserResult> page = new Page<>(request.getPage(), request.getSize());
 
         List<SystemUserResult> userEntityPage = systemUserRoleService.getFilterUserList(page, userInfo.getId(), request.getFilter(),
-                Splitter.on(",").trimResults().omitEmptyStrings().splitToList(request.getRoleIds()));
+                StringUtils.isBlank(request.getRoleIds()) ? null :Splitter.on(",").trimResults().omitEmptyStrings().splitToList(request.getRoleIds()));
         if (CollectionUtils.isEmpty(userEntityPage)) {
             userEntityPage = ListUtils.EMPTY_LIST;
         }
