@@ -28,7 +28,10 @@
             or a.nickname like CONCAT(CONCAT('%',#{filter}), '%') )
         </if>
         <if test="roleIds!=null and roleIds!=''">
-            and c.id in (#{roleIds})
+            and c.id in
+            <foreach collection="roleIds" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
         </if>
     </select>
 

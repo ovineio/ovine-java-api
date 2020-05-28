@@ -4,6 +4,7 @@ package com.igroupes.rtadmin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.igroupes.rtadmin.config.LoginProperties;
 import com.igroupes.rtadmin.constant.RtAdminConstant;
@@ -252,7 +253,9 @@ public class UserServiceImpl implements IUserService {
             throw new RtAdminException(ErrorCode.PARAM_ERROR);
         }
         Page<SystemUserResult> page = new Page<>(request.getPage(), request.getSize());
-        List<SystemUserResult> userEntityPage = systemUserRoleService.getFilterUserList(page, userInfo.getId(), request.getFilter(), request.getRoleIds());
+
+        List<SystemUserResult> userEntityPage = systemUserRoleService.getFilterUserList(page, userInfo.getId(), request.getFilter(),
+                Splitter.on(",").trimResults().omitEmptyStrings().splitToList(request.getRoleIds()));
         if (CollectionUtils.isEmpty(userEntityPage)) {
             userEntityPage = ListUtils.EMPTY_LIST;
         }

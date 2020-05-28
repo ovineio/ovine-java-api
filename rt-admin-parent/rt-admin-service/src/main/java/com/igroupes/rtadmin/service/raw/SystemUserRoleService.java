@@ -24,7 +24,7 @@ public class SystemUserRoleService extends ServiceImpl<SystemUserRoleMapper, Sys
     }
 
 
-    public List<SystemUserResult> getFilterUserList(Page page , Long userId, String filter, String roles) {
+    public List<SystemUserResult> getFilterUserList(Page page , Long userId, String filter, List<String> roles) {
         Requires.requireNonNull(userId, "user id");
         return systemUserRoleMapper.getFilterUserPage(page,userId, filter, roles);
     }
