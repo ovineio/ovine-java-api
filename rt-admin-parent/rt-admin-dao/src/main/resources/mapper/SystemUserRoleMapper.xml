@@ -27,7 +27,7 @@
             and (a.id like CONCAT(CONCAT('%',#{filter}), '%') or a.username like CONCAT(CONCAT('%',#{filter}), '%')
             or a.nickname like CONCAT(CONCAT('%',#{filter}), '%') )
         </if>
-        <if test="roleIds!=null and roleIds!=''">
+        <if test="roleIds!=null">
             and c.id in
             <foreach collection="roleIds" item="item" index="index" open="(" separator="," close=")">
                 #{item}
