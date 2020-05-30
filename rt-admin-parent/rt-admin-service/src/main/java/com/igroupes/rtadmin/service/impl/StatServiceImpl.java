@@ -2,7 +2,7 @@ package com.igroupes.rtadmin.service.impl;
 
 import com.igroupes.rtadmin.constant.RtAdminConstant;
 import com.igroupes.rtadmin.dto.UserInfo;
-import com.igroupes.rtadmin.dto.reponse.StatResponse;
+import com.igroupes.rtadmin.dto.response.StatResponse;
 import com.igroupes.rtadmin.dto.request.StatGetRequest;
 import com.igroupes.rtadmin.dto.request.StatRequest;
 import com.igroupes.rtadmin.entity.SystemUserStatEntity;

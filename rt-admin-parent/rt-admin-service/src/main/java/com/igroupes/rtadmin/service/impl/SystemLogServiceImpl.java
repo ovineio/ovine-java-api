@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.igroupes.rtadmin.constant.RtAdminConstant;
 import com.igroupes.rtadmin.dto.UserInfo;
-import com.igroupes.rtadmin.dto.reponse.SystemLogListResponse;
+import com.igroupes.rtadmin.dto.response.SystemLogListResponse;
 import com.igroupes.rtadmin.dto.request.SystemLogListRequest;
 import com.igroupes.rtadmin.entity.SystemLogEntity;
 import com.igroupes.rtadmin.enums.ErrorCode;

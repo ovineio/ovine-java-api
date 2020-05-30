@@ -2,7 +2,7 @@ package com.igroupes.rtadmin.service.impl;
 
 import com.igroupes.rtadmin.constant.RtAdminConstant;
 import com.igroupes.rtadmin.dto.UserInfo;
-import com.igroupes.rtadmin.dto.reponse.FileUploadResponse;
+import com.igroupes.rtadmin.dto.response.FileUploadResponse;
 import com.igroupes.rtadmin.entity.FileLogEntity;
 import com.igroupes.rtadmin.enums.ErrorCode;
 import com.igroupes.rtadmin.file.core.FileStore;

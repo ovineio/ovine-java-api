@@ -1,4 +1,4 @@
-package com.igroupes.rtadmin.dto.reponse;
+package com.igroupes.rtadmin.dto.response;
 
 import lombok.Data;
 

@@ -1,7 +1,6 @@
 package com.igroupes.rtadmin.service.raw;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.igroupes.rtadmin.dto.reponse.StatResponse;
 import com.igroupes.rtadmin.entity.SystemUserStatEntity;
 import com.igroupes.rtadmin.mapper.SystemUserStatMapper;
 import com.igroupes.rtadmin.result.StatResult;
