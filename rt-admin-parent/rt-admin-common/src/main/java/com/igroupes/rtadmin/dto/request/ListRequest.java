@@ -9,4 +9,6 @@ import lombok.Data;
 @Data
 public class ListRequest extends PageRequest {
     private String key;
+    private String startDate;
+    private String endDate;
 }

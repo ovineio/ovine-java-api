@@ -30,6 +30,13 @@ public class DocumentService extends ServiceImpl<DocumentMapper, DocumentEntity>
             if (StringUtils.isNotBlank(request.getKey())) {
                 queryWrapper.lambda().like(DocumentEntity::getTitle, URLDecoder.decode(request.getKey(), RtAdminConstant.URL_DECODE_CHARSET));
             }
+
+            if (StringUtils.isNotBlank(request.getEndDate())) {
+                queryWrapper.lambda().lt(DocumentEntity::getAddTime,URLDecoder.decode(request.getEndDate(), RtAdminConstant.URL_DECODE_CHARSET));
+            }
+            if (StringUtils.isNotBlank(request.getStartDate())) {
+                queryWrapper.lambda().ge(DocumentEntity::getAddTime,URLDecoder.decode(request.getStartDate(), RtAdminConstant.URL_DECODE_CHARSET));
+            }
         } catch (Exception ex) {
             throw new RtAdminException(ErrorCode.PARAM_ERROR);
         }

@@ -30,6 +30,12 @@ public class ConfigService extends ServiceImpl<ConfigMapper, ConfigEntity> {
             if (StringUtils.isNotBlank(request.getKey())) {
                 queryWrapper.lambda().like(ConfigEntity::getContent, URLDecoder.decode(request.getKey(), RtAdminConstant.URL_DECODE_CHARSET));
             }
+            if (StringUtils.isNotBlank(request.getEndDate())) {
+                queryWrapper.lambda().lt(ConfigEntity::getAddTime,URLDecoder.decode(request.getEndDate(), RtAdminConstant.URL_DECODE_CHARSET));
+            }
+            if (StringUtils.isNotBlank(request.getStartDate())) {
+                queryWrapper.lambda().ge(ConfigEntity::getAddTime,URLDecoder.decode(request.getStartDate(), RtAdminConstant.URL_DECODE_CHARSET));
+            }
         } catch (Exception ex) {
             throw new RtAdminException(ErrorCode.PARAM_ERROR);
         }
