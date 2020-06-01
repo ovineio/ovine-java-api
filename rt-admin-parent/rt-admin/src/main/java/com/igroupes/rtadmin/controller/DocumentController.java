@@ -34,7 +34,7 @@ public class DocumentController {
     public ResultVO deleteDocument(UserInfo userInfo, @PathVariable Long id) {
         return documentService.deleteDocument(userInfo, id);
     }
-    @GetMapping("items")
+    @GetMapping("item")
     public ResultVO getDocuments(UserInfo userInfo, ListRequest request){
         PageDTOUtil.fixPageDTO(request);
         return documentService.getDocumentList(userInfo, request);

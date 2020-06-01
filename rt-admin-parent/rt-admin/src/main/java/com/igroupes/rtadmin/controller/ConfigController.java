@@ -34,7 +34,7 @@ public class ConfigController {
     public ResultVO deleteConfig(UserInfo userInfo, @PathVariable Long id) {
         return configService.deleteConfig(userInfo, id);
     }
-    @GetMapping("items")
+    @GetMapping("item")
     public ResultVO getConfigs(UserInfo userInfo, ListRequest request){
         PageDTOUtil.fixPageDTO(request);
         return configService.getConfigList(userInfo, request);
