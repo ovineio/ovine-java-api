@@ -66,7 +66,7 @@ public class StatServiceImpl implements IStatService {
         // 默认最近7天
         if (StringUtils.isBlank(request.getStartDate()) && StringUtils.isBlank(request.getEndDate())) {
             request.setEndDate(DateUtils.getDate());
-            request.setStartDate(DateUtils.getDate(DateUtils.nextDay(-7), DateUtils.DATE_FORMAT));
+            request.setStartDate(DateUtils.getDate(DateUtils.nextDay(-6), DateUtils.DATE_FORMAT));
         }
         if (StringUtils.isBlank(request.getEndDate())) {
             request.setEndDate(DateUtils.getDate());
@@ -77,12 +77,12 @@ public class StatServiceImpl implements IStatService {
     private StatResponse getStatResponse(StatGetRequest request) {
         StatResponse statResponse = new StatResponse();
         List<StatResult> stat = fixStat(systemUserStatService.getStat(request.getStartDate(), request.getEndDate()), request.getStartDate(), request.getEndDate());
-        stat = stat.stream().sorted(new Comparator<StatResult>() {
-            @Override
-            public int compare(StatResult r1, StatResult r2) {
-                return r2.getDate().compareTo(r1.getDate());
-            }
-        }).collect(Collectors.toList());
+//        stat = stat.stream().sorted(new Comparator<StatResult>() {
+//            @Override
+//            public int compare(StatResult r1, StatResult r2) {
+//                return r2.getDate().compareTo(r1.getDate());
+//            }
+//        }).collect(Collectors.toList());
         List<StatResponse.StatResponseDetail> detail = stat.stream().map(record -> {
             StatResponse.StatResponseDetail statResponseDetail = new StatResponse.StatResponseDetail();
             BeanUtils.copyProperties(record, statResponseDetail);

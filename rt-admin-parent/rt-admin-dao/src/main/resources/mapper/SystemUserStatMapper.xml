@@ -14,7 +14,7 @@
                 and SUBSTR(add_time,1,10) >= #{startDate}
             </if>
             <if test="endDate!=null and endDate!=''">
-                and SUBSTR(add_time,1,10) &lt; #{endDate}
+                and SUBSTR(add_time,1,10) &lt;= #{endDate}
             </if>
             GROUP BY pt
 
@@ -28,7 +28,7 @@
                 and SUBSTR(add_time,1,10) >= #{startDate}
             </if>
             <if test="endDate!=null and endDate!=''">
-                and SUBSTR(add_time,1,10) &lt; #{endDate}
+                and SUBSTR(add_time,1,10) &lt;= #{endDate}
             </if>
             GROUP BY pt
 
@@ -41,7 +41,7 @@
                 and SUBSTR(add_time,1,10) >= #{startDate}
             </if>
             <if test="endDate!=null and endDate!=''">
-                and SUBSTR(add_time,1,10) &lt; #{endDate}
+                and SUBSTR(add_time,1,10) &lt;= #{endDate}
             </if>
             GROUP BY pt
 
@@ -54,7 +54,7 @@
                 and SUBSTR(add_time,1,10) >= #{startDate}
             </if>
             <if test="endDate!=null and endDate!=''">
-                and SUBSTR(add_time,1,10) &lt; #{endDate}
+                and SUBSTR(add_time,1,10) &lt;= #{endDate}
             </if>
             GROUP BY pt
 
@@ -75,7 +75,7 @@
                 and a.pt >= #{startDate}
             </if>
             <if test="endDate!=null and endDate!=''">
-                and a.pt &lt; #{endDate}
+                and a.pt &lt;= #{endDate}
             </if>
             GROUP BY a.pt
         ) t
@@ -86,7 +86,7 @@
         SELECT  COUNT(id) cnt FROM system_user
         where 1 = 1
         <if test="endDate!=null and endDate!=''">
-            and SUBSTR(add_time,1,10) &lt; #{endDate}
+            and SUBSTR(add_time,1,10) &lt;= #{endDate}
         </if>
 
     </select>
