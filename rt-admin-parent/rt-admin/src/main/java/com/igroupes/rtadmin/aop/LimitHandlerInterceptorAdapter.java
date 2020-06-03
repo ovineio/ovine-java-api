@@ -34,7 +34,9 @@ public class LimitHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
             Requires.requireNonNull(userInfo, "user info");
             Requires.requireNonNull(userInfo.getId(), "user id");
             SystemPermissionEntity permissionDO = systemPermissionService.getPermissionById(userInfo.getId());
+            log.info("用户：{} 拥有的权限api列表:{},本次需要检查的api:{}", userInfo.getId() , permissionDO.getApi(),request.getRequestURI());
             boolean pass = PermissionUtils.limitPass(permissionDO.getApi(), request);
+            log.info("用户：{} ，{}当前api:{}的权限",userInfo.getId() ,  pass ? "有":"没有" , request.getRequestURI());
             if (!pass) {
                 throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
             }
