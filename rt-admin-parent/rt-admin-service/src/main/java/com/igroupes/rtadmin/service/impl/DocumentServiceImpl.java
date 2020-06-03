@@ -46,7 +46,10 @@ public class DocumentServiceImpl implements IDocumentService {
     public ResultVO updateDocument(UserInfo userInfo, Long id, DocumentRequest request) {
         DocumentEntity document = checkUserRole(userInfo.getId(),id);
         document.setUpdateUser(userInfo.getId());
-        BeanUtils.copyProperties(request,document);
+//        BeanUtils.copyProperties(request,document);
+        document.setContent(request.getContent());
+        document.setDesc(request.getDesc());
+        document.setTitle(request.getTitle());
         documentService.updateById(document);
         return ResultVO.success();
     }

@@ -46,7 +46,9 @@ public class ConfigServiceImpl implements IConfigService {
     public ResultVO updateConfig(UserInfo userInfo, Long id, ConfigRequest request) {
         ConfigEntity config = checkUserRole(userInfo.getId(),id);
         config.setUpdateUser(userInfo.getId());
-        BeanUtils.copyProperties(request,config);
+//        BeanUtils.copyProperties(request,config);
+        config.setContent(request.getContent());
+        config.setDesc(request.getDesc());
         configService.updateById(config);
         return ResultVO.success();
     }
