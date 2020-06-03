@@ -99,9 +99,9 @@ public class ConfigServiceImpl implements IConfigService {
         if (null == configEntity) {
             throw new RtAdminException(ErrorCode.PARAM_ERROR);
         }
-        if(!configEntity.getAddUser().equals(userId)){
-            throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
-        }
+//        if(!configEntity.getAddUser().equals(userId)){
+//            throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
+//        }
         return configEntity;
     }
 

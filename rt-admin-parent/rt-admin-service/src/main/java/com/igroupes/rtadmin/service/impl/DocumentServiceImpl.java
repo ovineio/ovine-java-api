@@ -95,9 +95,9 @@ public class DocumentServiceImpl implements IDocumentService {
         if (null == document) {
             throw new RtAdminException(ErrorCode.PARAM_ERROR);
         }
-        if(!document.getAddUser().equals(userId)){
-            throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
-        }
+//        if(!document.getAddUser().equals(userId)){
+//            throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
+//        }
         return document;
     }
 
