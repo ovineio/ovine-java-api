@@ -25,7 +25,6 @@ public class DocumentService extends ServiceImpl<DocumentMapper, DocumentEntity>
 
     public IPage<DocumentEntity> findDocumentList(Page<DocumentEntity> page, UserInfo userInfo, ListRequest request){
         QueryWrapper<DocumentEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(DocumentEntity::getAddUser, userInfo.getId());
         try {
             if (StringUtils.isNotBlank(request.getKey())) {
                 queryWrapper.lambda().like(DocumentEntity::getTitle, URLDecoder.decode(request.getKey(), RtAdminConstant.URL_DECODE_CHARSET));

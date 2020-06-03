@@ -25,7 +25,6 @@ public class ConfigService extends ServiceImpl<ConfigMapper, ConfigEntity> {
 
     public IPage<ConfigEntity> findConfigList(Page<ConfigEntity> page, UserInfo userInfo, ListRequest request){
         QueryWrapper<ConfigEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(ConfigEntity::getAddUser, userInfo.getId());
         try {
             if (StringUtils.isNotBlank(request.getKey())) {
                 queryWrapper.lambda().like(ConfigEntity::getContent, URLDecoder.decode(request.getKey(), RtAdminConstant.URL_DECODE_CHARSET));
