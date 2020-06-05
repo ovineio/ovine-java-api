@@ -1,5 +1,7 @@
 package com.igroupes.rtadmin.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 /**
@@ -7,7 +9,9 @@ import lombok.Data;
  */
 @Data
 public class BaseEntity {
+    @TableField(fill= FieldFill.INSERT)
     private String addTime;
+    @TableField(fill= FieldFill.UPDATE)
     private String updateTime;
     private Long addUser;
     private Long updateUser;
