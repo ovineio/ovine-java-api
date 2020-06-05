@@ -13,7 +13,7 @@ public class EnumUtils {
      */
     public static <E, T extends CodeEnum<E>> T getEnumByCode(Class<T> clazz, E code) {
         for (T _enum : clazz.getEnumConstants()){
-            if (code == _enum.getCode()){
+            if (code.equals(_enum.getCode())){
                 return _enum;
             }
         }

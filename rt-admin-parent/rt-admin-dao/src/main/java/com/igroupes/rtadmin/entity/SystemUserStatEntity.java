@@ -10,6 +10,7 @@ public class SystemUserStatEntity {
     @TableId
     private Long id;
     private Long userId;
+    private String ip;
     private Integer operate;
     private String detail;
 }

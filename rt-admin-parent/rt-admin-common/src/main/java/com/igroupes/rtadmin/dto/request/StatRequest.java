@@ -28,5 +28,10 @@ public class StatRequest {
         public Integer getCode() {
             return code;
         }
+
+        @Override
+        public String toString() {
+            return getMessage()+","+getCode();
+        }
     }
 }

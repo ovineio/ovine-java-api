@@ -12,6 +12,7 @@ import com.igroupes.rtadmin.service.IStatService;
 import com.igroupes.rtadmin.service.raw.SystemUserStatService;
 import com.igroupes.rtadmin.util.DateUtils;
 import com.igroupes.rtadmin.util.EnumUtils;
+import com.igroupes.rtadmin.util.HttpUtils;
 import com.igroupes.rtadmin.vo.ResultVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,7 @@ public class StatServiceImpl implements IStatService {
         SystemUserStatEntity systemUserStatEntity = new SystemUserStatEntity();
         systemUserStatEntity.setOperate(request.getCode());
         systemUserStatEntity.setDetail(request.getDetail());
+        systemUserStatEntity.setIp(HttpUtils.getIpAddr(httpRequest));
         if (userInfo != null) {
             systemUserStatEntity.setUserId(userInfo.getId());
         }
