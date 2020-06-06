@@ -253,7 +253,7 @@ public class PermissionServiceImpl implements IPermissionService {
             log.error("role id :{} has child  user ", systemRoleEntity.getId());
             throw new RtAdminException(ErrorCode.ROLE_CHILD_EXIST);
         }
-        systemUserRoleService.removeById(roleId);
+        systemRoleService.removeById(roleId);
         return ResultVO.success();
     }
 

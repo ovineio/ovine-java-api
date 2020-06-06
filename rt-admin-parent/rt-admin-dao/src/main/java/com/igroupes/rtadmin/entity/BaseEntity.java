@@ -11,7 +11,7 @@ import lombok.Data;
 public class BaseEntity {
     @TableField(fill= FieldFill.INSERT)
     private String addTime;
-    @TableField(fill= FieldFill.UPDATE)
+    @TableField(fill= FieldFill.INSERT_UPDATE)
     private String updateTime;
     private Long addUser;
     private Long updateUser;

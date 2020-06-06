@@ -14,7 +14,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("createTime", DateUtils.getDate(DateUtils.DATETIME_FORMAT),metaObject);
+        this.setFieldValByName("addTime", DateUtils.getDate(DateUtils.DATETIME_FORMAT),metaObject);
         this.setFieldValByName("updateTime", DateUtils.getDate(DateUtils.DATETIME_FORMAT),metaObject);
 
     }
