@@ -43,7 +43,7 @@
             SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM system_user_stat WHERE operate = 100001
             GROUP BY pt
             ) b
-            ON a.pt > b.pt
+            ON a.pt >= b.pt
             where 1 = 1
             <if test="startDate!=null and startDate!=''">
                 and a.pt >= #{startDate}
@@ -78,7 +78,7 @@
                 SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM system_user
                 GROUP BY pt
             ) b
-            ON a.pt > b.pt
+            ON a.pt >= b.pt
             where 1 = 1
             <if test="startDate!=null and startDate!=''">
                 and a.pt >= #{startDate}
