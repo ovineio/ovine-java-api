@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.igroupes.rtadmin.config.LoginProperties;
+import com.igroupes.rtadmin.config.UserProperties;
 import com.igroupes.rtadmin.constant.RtAdminConstant;
 import com.igroupes.rtadmin.dto.UserInfo;
 import com.igroupes.rtadmin.dto.response.UserBaseInfoResponse;
@@ -62,6 +63,8 @@ public class UserServiceImpl implements IUserService {
     private SystemUserRoleService systemUserRoleService;
     @Autowired
     private SystemRoleService systemRoleService;
+    @Autowired
+    private UserProperties userProperties;
 
     @Override
     public ResultVO login(UserLoginRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
@@ -156,7 +159,11 @@ public class UserServiceImpl implements IUserService {
     public ResultVO addUser(UserInfo userInfo, UserAddRequest request) {
         checkNewUser(userInfo, request);
         SystemUserEntity userEntity = new SystemUserEntity();
-        userEntity.setAvatar(request.getAvatar());
+        if(StringUtils.isBlank(request.getAvatar())){
+            userEntity.setAvatar(userProperties.getDefaultAvatar());
+        }else{
+            userEntity.setAvatar(request.getAvatar());
+        }
         userEntity.setDesc(request.getDesc());
         userEntity.setNickname(request.getNickname());
         userEntity.setParentId(userInfo.getId());
