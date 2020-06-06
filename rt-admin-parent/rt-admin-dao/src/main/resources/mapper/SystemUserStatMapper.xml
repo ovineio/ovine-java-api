@@ -34,7 +34,7 @@
 
             UNION ALL
 
-        SELECT SUBSTR(add_time,1,10) pt , 0 register_count, 0 login_count, count(distinct user_id) show_count, 0 show_user_count ,0 user_count
+        SELECT SUBSTR(add_time,1,10) pt , 0 register_count, 0 login_count, count( user_id) show_count, 0 show_user_count ,0 user_count
         FROM `system_user_stat`
         WHERE operate = 100001
         <if test="startDate!=null and startDate!=''">
