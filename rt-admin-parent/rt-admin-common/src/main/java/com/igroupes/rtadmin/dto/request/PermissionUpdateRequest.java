@@ -6,8 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class PermissionUpdateRequest {
-    @NotBlank(message = "limit is blank")
+    // 说明： 允许为空表示无权限
     private String limit;
-    @NotBlank(message = "api is blank")
     private String api;
 }

@@ -22,27 +22,6 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
 
 
-#mybatis
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/**Mapper.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.igroupes.rtadmin.entity
-  global-config:
-    db-config:
-        column-format: "`%s`"
-        id-type: auto
-        logic-delete-value: "now()"
-        logic-not-delete-value: "0"
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-
-rest-template:
-  maxTotalConnect: 100 #连接池的最大连接数
-  maxConnectPerRoute: 200 #单个主机的最大连接数
-  connectTimeout: 20000 #连接超时
-  readTimeout: 30000 # 读超时
-
 
 rtadmin:
   login:
