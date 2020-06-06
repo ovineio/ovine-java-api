@@ -22,4 +22,9 @@ public class SystemUserStatService extends ServiceImpl<SystemUserStatMapper, Sys
     public Integer getUserCount(String endDate) {
         return systemUserStatMapper.getUserCount(endDate);
     }
+
+
+    public Integer getShowCount(String endDate) {
+        return systemUserStatMapper.getShowCount(endDate);
+    }
 }

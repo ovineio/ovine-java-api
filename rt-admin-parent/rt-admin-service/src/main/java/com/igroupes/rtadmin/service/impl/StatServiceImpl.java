@@ -79,12 +79,6 @@ public class StatServiceImpl implements IStatService {
     private StatResponse getStatResponse(StatGetRequest request) {
         StatResponse statResponse = new StatResponse();
         List<StatResult> stat = fixStat(systemUserStatService.getStat(request.getStartDate(), request.getEndDate()), request.getStartDate(), request.getEndDate());
-//        stat = stat.stream().sorted(new Comparator<StatResult>() {
-//            @Override
-//            public int compare(StatResult r1, StatResult r2) {
-//                return r2.getDate().compareTo(r1.getDate());
-//            }
-//        }).collect(Collectors.toList());
         List<StatResponse.StatResponseDetail> detail = stat.stream().map(record -> {
             StatResponse.StatResponseDetail statResponseDetail = new StatResponse.StatResponseDetail();
             BeanUtils.copyProperties(record, statResponseDetail);
@@ -104,12 +98,12 @@ public class StatServiceImpl implements IStatService {
         }).collect(Collectors.toList());
         List<StatResult> ret = new ArrayList<StatResult>();
         if (CollectionUtils.isEmpty(statList)) {
-            fillStatData(ret, DateUtils.parseDate(start), DateUtils.addDays(DateUtils.parseDate(end), 1), systemUserStatService.getUserCount(start));
+            fillStatData(ret, DateUtils.parseDate(start), DateUtils.addDays(DateUtils.parseDate(end), 1), systemUserStatService.getUserCount(start), systemUserStatService.getShowCount(start));
             return ret;
         }
         // statList.get(0).getDate() -> start 这段
         if (!statList.get(0).getDate().equals(start)) {
-            fillStatData(ret,DateUtils.parseDate(start), DateUtils.parseDate(statList.get(0).getDate()),  systemUserStatService.getUserCount(statList.get(0).getDate()));
+            fillStatData(ret,DateUtils.parseDate(start), DateUtils.parseDate(statList.get(0).getDate()),  systemUserStatService.getUserCount(statList.get(0).getDate()), systemUserStatService.getShowCount(start));
         }
 
         for (int i = 0; i < statList.size(); i++) {
@@ -118,6 +112,7 @@ public class StatServiceImpl implements IStatService {
             if (i == 0 ) {
                 if(curStat.getUserCount() == 0){
                     statList.get(i).setUserCount(systemUserStatService.getUserCount(curStat.getDate()));
+                    statList.get(i).setShowCount(systemUserStatService.getShowCount(curStat.getDate()));
                     ret.add(curStat);
                 }
                 continue;
@@ -134,12 +129,12 @@ public class StatServiceImpl implements IStatService {
                 continue;
             }
             // 补充这几天的数据
-            fillStatData(ret, preDate, curDate, preStat.getUserCount());
+            fillStatData(ret, preDate, curDate, preStat.getUserCount(),preStat.getShowCount());
             ret.add(curStat);
         }
         // -> end
         if (!statList.get(statList.size() - 1).getDate().equals(end)) {
-            fillStatData(ret, DateUtils.parseDate(statList.get(statList.size() - 1).getDate()), DateUtils.parseDate(end), statList.get(statList.size() - 1).getUserCount());
+            fillStatData(ret, DateUtils.parseDate(statList.get(statList.size() - 1).getDate()), DateUtils.parseDate(end), statList.get(statList.size() - 1).getUserCount(), statList.get(statList.size() - 1).getShowCount());
         }
         return ret;
     }
@@ -150,7 +145,7 @@ public class StatServiceImpl implements IStatService {
      * @param end       不包含
      * @param userCount
      */
-    private void fillStatData(List<StatResult> data, Date start, Date end, int userCount) {
+    private void fillStatData(List<StatResult> data, Date start, Date end, int userCount , int showCount) {
         while (!DateUtils.formatDate(start).equals(DateUtils.formatDate(end))) {
             data.add(new StatResult(DateUtils.formatDate(start), 0, 0, userCount, 0, 0));
             start = DateUtils.addDays(start, 1);
