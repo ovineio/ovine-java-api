@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ovine-java-api.iml" filepath="$PROJECT_DIR$/.idea/ovine-java-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rt-admin-parent/rt-admin/rt-admin.iml" filepath="$PROJECT_DIR$/rt-admin-parent/rt-admin/rt-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rt-admin-parent/rt-admin-common/rt-admin-common.iml" filepath="$PROJECT_DIR$/rt-admin-parent/rt-admin-common/rt-admin-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rt-admin-parent/rt-admin-dao/rt-admin-dao.iml" filepath="$PROJECT_DIR$/rt-admin-parent/rt-admin-dao/rt-admin-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rt-admin-parent/rt-admin-file/rt-admin-file.iml" filepath="$PROJECT_DIR$/rt-admin-parent/rt-admin-file/rt-admin-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rt-admin-parent/rt-admin-parent.iml" filepath="$PROJECT_DIR$/rt-admin-parent/rt-admin-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rt-admin-parent/rt-admin-service/rt-admin-service.iml" filepath="$PROJECT_DIR$/rt-admin-parent/rt-admin-service/rt-admin-service.iml" />
+    </modules>
+  </component>
+</project>
