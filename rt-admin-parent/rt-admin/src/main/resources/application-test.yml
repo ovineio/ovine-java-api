@@ -2,11 +2,12 @@
 # mysql
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/rt_admin?prepStmtCacheSize=517&cachePrepStmts=true&autoReconnect=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
-      username: test
-      password: Suijimima_12
+      username: root
+      password: root
       initialSize: 5
       minIdle: 5
       maxActive: 20
@@ -20,7 +21,6 @@ spring:
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
 
-
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
@@ -28,10 +28,10 @@ mybatis-plus:
   type-aliases-package: com.igroupes.rtadmin.entity
   global-config:
     db-config:
-        column-format: "`%s`"
-        id-type: auto
-        logic-delete-value: "now()"
-        logic-not-delete-value: "0"
+      column-format: "`%s`"
+      id-type: auto
+      logic-delete-value: "now()"
+      logic-not-delete-value: "0"
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
@@ -52,7 +52,7 @@ rtadmin:
     verify-code-interval: 300000 # 5分钟,多久分割一个桶
     verify-code-timeout: 300000 # 校验码多久过期
   request:
-    limit-exclude-path: /user/(code|logout|login|info|password|demo_register)|/stat/data # 不校验权限的路径,正则表示式,剔除根路径
+    limit-exclude-path: /user/(code|logout|login|info|password|demo_register)|/stat/data|/file/image/.* # 不校验权限的路径,正则表示式,剔除根路径
     log-request-type-filter: POST|PUT|DELETE # 过滤需要的请求类型，正则表达式
     log-exclude-path: /user/password:POST;/stat/data:* # 系统日志排除的路径（如果是通配地址使用$）,格式：路径：请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式)
     #系统日志不记录日志的字段，格式： 请求路径（如果是通配地址使用$）:请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式):字段列表(中间使用逗号隔开),多个请求中间使用
@@ -62,4 +62,4 @@ rtadmin:
     type: com.igroupes.rtadmin.file.core.SimpleFileStore # 类全名
     file-store-dir: /tmp/file/
     store-dir-max-bytes: 10737418240
-    download-url-prefix:  http://xtr46z.natappfree.cc/rtapi/file/image
+    download-url-prefix:  http://ovine.igroupes.com/ovapi/file/image
