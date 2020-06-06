@@ -199,6 +199,7 @@ public class PermissionServiceImpl implements IPermissionService {
 
             // 修改子角色权限
             List<SystemPermissionEntity> childPermList = systemRoleService.getChildPermList(RtAdminUtils.parentChain(systemRoleEntity.getId(), systemRoleEntity.getParentChain()));
+            log.info("权限链:{}的子权限链有:{}",RtAdminUtils.parentChain(systemRoleEntity.getId(), systemRoleEntity.getParentChain()),childPermList);
             if (CollectionUtils.isEmpty(childPermList)) {
                 return ResultVO.success();
             }
