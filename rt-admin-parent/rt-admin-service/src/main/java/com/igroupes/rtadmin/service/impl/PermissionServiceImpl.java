@@ -212,6 +212,7 @@ public class PermissionServiceImpl implements IPermissionService {
             }
 
             for (SystemPermissionEntity childPerm : childPermList) {
+                log.info("由于父权限被修改，子权限：{}需要被递归修改",childPerm);
                 childPerm.setLimitDetail(PermissionUtils.cutChildLimit(childPerm.getLimitDetail(), cutLimitSet));
                 childPerm.setApi(PermissionUtils.cutChildApi(childPerm.getApi(), cutApiPathTrie));
                 systemPermissionService.updateById(childPerm);
