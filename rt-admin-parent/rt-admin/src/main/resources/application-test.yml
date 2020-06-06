@@ -2,7 +2,6 @@
 # mysql
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/rt_admin?prepStmtCacheSize=517&cachePrepStmts=true&autoReconnect=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
@@ -21,6 +20,7 @@ spring:
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
 
+
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
@@ -28,10 +28,10 @@ mybatis-plus:
   type-aliases-package: com.igroupes.rtadmin.entity
   global-config:
     db-config:
-      column-format: "`%s`"
-      id-type: auto
-      logic-delete-value: "now()"
-      logic-not-delete-value: "0"
+        column-format: "`%s`"
+        id-type: auto
+        logic-delete-value: "now()"
+        logic-not-delete-value: "0"
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
@@ -60,6 +60,6 @@ rtadmin:
 
   file-store:
     type: com.igroupes.rtadmin.file.core.SimpleFileStore # 类全名
-    file-store-dir: /tmp/file/
+    file-store-dir: /deployer/file/
     store-dir-max-bytes: 10737418240
     download-url-prefix:  http://ovine.igroupes.com/ovapi/file/image
