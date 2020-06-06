@@ -52,7 +52,7 @@ rtadmin:
     verify-code-interval: 300000 # 5分钟,多久分割一个桶
     verify-code-timeout: 300000 # 校验码多久过期
   request:
-    limit-exclude-path: /user/(code|logout|login|info|password|demo_register)|/stat/data|/file/image/.* # 不校验权限的路径,正则表示式,剔除根路径
+    limit-exclude-path: /user/(code|logout|login|info|password|demo_register)|/stat/data|/file/image.* # 不校验权限的路径,正则表示式,剔除根路径
     log-request-type-filter: POST|PUT|DELETE # 过滤需要的请求类型，正则表达式
     log-exclude-path: /user/password:POST;/stat/data:* # 系统日志排除的路径（如果是通配地址使用$）,格式：路径：请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式)
     #系统日志不记录日志的字段，格式： 请求路径（如果是通配地址使用$）:请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式):字段列表(中间使用逗号隔开),多个请求中间使用
