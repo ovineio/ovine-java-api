@@ -28,10 +28,10 @@ mybatis-plus:
   type-aliases-package: com.igroupes.rtadmin.entity
   global-config:
     db-config:
-        column-format: "`%s`"
-        id-type: auto
-        logic-delete-value: "now()"
-        logic-not-delete-value: "0"
+      column-format: "`%s`"
+      id-type: auto
+      logic-delete-value: "now()"
+      logic-not-delete-value: "0"
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
@@ -60,6 +60,6 @@ rtadmin:
 
   file-store:
     type: com.igroupes.rtadmin.file.core.SimpleFileStore # 类全名
-    file-store-dir: /deployer/file/
+    file-store-dir: /tmp/file/
     store-dir-max-bytes: 10737418240
     download-url-prefix:  http://ovine.igroupes.com/ovapi/file/image
