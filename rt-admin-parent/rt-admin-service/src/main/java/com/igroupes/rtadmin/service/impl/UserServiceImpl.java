@@ -238,6 +238,13 @@ public class UserServiceImpl implements IUserService {
             log.error("userId:{}必须是userId:{}的直接/间隔创建者,才有权限删除用户", userInfo.getId(), userId);
             throw new RtAdminException(ErrorCode.PERMISSION_DENIED);
         }
+        // 如果存在子用户就不能删除
+        SystemUserEntity userEntityFind = new SystemUserEntity();
+        userEntityFind.setParentId(userId);
+        SystemUserEntity one = systemUserService.getOne(new QueryWrapper<>(userEntityFind));
+        if(one != null){
+            throw new RtAdminException(ErrorCode.CASCADING_DELETION_EXCEPTION);
+        }
         if (!systemUserService.removeById(userId)) {
             log.error("删除用户id:{}失败", userId);
             throw new RtAdminException(ErrorCode.SYSTEM_ERROR);
