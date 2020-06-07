@@ -241,8 +241,8 @@ public class UserServiceImpl implements IUserService {
         // 如果存在子用户就不能删除
         SystemUserEntity userEntityFind = new SystemUserEntity();
         userEntityFind.setParentId(userId);
-        SystemUserEntity one = systemUserService.getOne(new QueryWrapper<>(userEntityFind));
-        if(one != null){
+        List<SystemUserEntity> res = systemUserService.list(new QueryWrapper<>(userEntityFind));
+        if(CollectionUtils.isNotEmpty(res)){
             throw new RtAdminException(ErrorCode.CASCADING_DELETION_EXCEPTION);
         }
         if (!systemUserService.removeById(userId)) {
