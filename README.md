@@ -62,8 +62,6 @@
     2. service
 	  impl 重新装载service;raw 原生service类
 
-## 数据库设计
-
 
 [1]: https://jingyan.baidu.com/article/0a52e3f4e53ca1bf63ed725c.html "IDEA lombok插件安装"
 [2]: https://www.cnblogs.com/boonya/p/10691466.html "Eclipse安装lombok插件"
