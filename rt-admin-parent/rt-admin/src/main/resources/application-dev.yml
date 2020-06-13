@@ -6,8 +6,8 @@ spring:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://119.27.169.233:3306/rt_admin?prepStmtCacheSize=517&cachePrepStmts=true&autoReconnect=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
-      username: ovine
-      password: ovine_123
+      username: *
+      password: *
       initialSize: 5
       minIdle: 5
       maxActive: 20
