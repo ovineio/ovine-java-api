@@ -12,10 +12,10 @@ public class DocumentRequest {
     private String title;
 
     @NotBlank
-    @Length(max = 200, message = "内容长度不能超过200")
+    @Length(max = 2000, message = "内容长度不能超过2000")
     private String content;
 
     @NotBlank
-    @Length(max = 1000, message = "描述长度不能超过1000")
+    @Length(max = 2000, message = "描述长度不能超过2000")
     private String desc;
 }
