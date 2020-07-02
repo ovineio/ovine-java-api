@@ -4,7 +4,7 @@ server:
     context-path: /ovapi/
   tomcat:
       basedir:
-         /tmp/tomcat/rtadmin
+        /disk1/tomcat/rtadmin
 
 spring:
   profiles:
