@@ -14,6 +14,7 @@
         <module>rt-admin-dao</module>
         <module>rt-admin-service</module>
         <module>rt-admin-file</module>
+        <module>eureka-server</module>
     </modules>
 
     <parent>
@@ -44,6 +45,7 @@
         <mybatis-plus-boot-starter.version>3.2.0</mybatis-plus-boot-starter.version>
         <druid.version>1.1.10</druid.version>
         <httpclient.version>4.5.6</httpclient.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 
     </properties>
 
@@ -113,6 +115,13 @@
     <!--dependencyManagement用于管理依赖版本号-->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.igroupes</groupId>
                 <artifactId>rt-admin</artifactId>

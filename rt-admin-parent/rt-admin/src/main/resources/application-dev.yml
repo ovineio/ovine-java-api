@@ -5,9 +5,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://119.27.169.233:3306/rt_admin?prepStmtCacheSize=517&cachePrepStmts=true&autoReconnect=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
-      username: ovine
-      password: ovine_123
+      url: jdbc:mysql://ovineherd-dev:3306/rt_admin?prepStmtCacheSize=517&cachePrepStmts=true&autoReconnect=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
+      username: root
+      password: aq12wsde3.
       initialSize: 5
       minIdle: 5
       maxActive: 20
@@ -36,6 +36,8 @@ rtadmin:
     log-exclude-path: /user/password:POST;/stat/data:* # 系统日志排除的路径（如果是通配地址使用$）,格式：路径：请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式)
     #系统日志不记录日志的字段，格式： 请求路径（如果是通配地址使用$）:请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式):字段列表(中间使用逗号隔开),多个请求中间使用
     log-record-exclude-field: /user/login:POST:password,code;/system/user/item/$:*:password
+  user:
+    default-avatar: http://static.igroupes.com/default_avatar.jpg
 
   file-store:
     type: com.igroupes.rtadmin.file.core.SimpleFileStore # 类全名

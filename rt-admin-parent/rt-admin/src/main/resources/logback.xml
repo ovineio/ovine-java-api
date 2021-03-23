@@ -5,7 +5,7 @@
 
     <property scope="context" name="FILE_NAME" value="rt-admin-api-log"/>
 
-    <property name="catalina.home" value="/disk1/log/rt-admin"/>
+    <property name="catalina.home" value="/tmp/log/rt-admin"/>
 
 
     <timestamp key="byDay" datePattern="yyyy-MM-dd"/>
@@ -36,9 +36,9 @@
     <appender name="file-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <prudent>false</prudent>
-        <file>/disk1/log/rt-admin/logs/${FILE_NAME}-INFO.log</file>
+        <file>/tmp/log/rt-admin/logs/${FILE_NAME}-INFO.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>/disk1/log/rt-admin/logs/${byDay}/${FILE_NAME}-INFO-${byDay}-%i.log.zip
+            <fileNamePattern>/tmp/log/rt-admin/logs/${byDay}/${FILE_NAME}-INFO-${byDay}-%i.log.zip
             </fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>10</maxIndex>
@@ -62,9 +62,9 @@
     <appender name="file-debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <prudent>false</prudent>
-        <file>/disk1/log/rt-admin/logs/${FILE_NAME}-DEBUG.log</file>
+        <file>/tmp/log/rt-admin/logs/${FILE_NAME}-DEBUG.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>/disk1/log/rt-admin/logs/${byDay}/${FILE_NAME}-DEBUG-${byDay}-%i.log.zip
+            <fileNamePattern>/tmp/log/rt-admin/logs/${byDay}/${FILE_NAME}-DEBUG-${byDay}-%i.log.zip
             </fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>10</maxIndex>
@@ -87,9 +87,9 @@
     <appender name="file-warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <prudent>false</prudent>
-        <file>/disk1/log/rt-admin/logs/${FILE_NAME}-WARN.log</file>
+        <file>/tmp/log/rt-admin/logs/${FILE_NAME}-WARN.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>/disk1/log/rt-admin/logs/${byDay}/${FILE_NAME}-WARN-${byDay}-%i.log.zip
+            <fileNamePattern>/tmp/log/rt-admin/logs/${byDay}/${FILE_NAME}-WARN-${byDay}-%i.log.zip
             </fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>10</maxIndex>
@@ -113,9 +113,9 @@
     <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <prudent>false</prudent>
-        <file>/disk1/log/rt-admin/logs/${FILE_NAME}-ERROR.log</file>
+        <file>/tmp/log/rt-admin/logs/${FILE_NAME}-ERROR.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>/disk1/log/rt-admin/logs/${byDay}/${FILE_NAME}-ERROR-${byDay}-%i.log.zip
+            <fileNamePattern>/tmp/log/rt-admin/logs/${byDay}/${FILE_NAME}-ERROR-${byDay}-%i.log.zip
             </fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>10</maxIndex>
@@ -138,7 +138,7 @@
 
 
     <!-- 生产环境，将此级别配置为适合的级别，以名日志文件太多或影响程序性能 -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="file-info"/>
         <appender-ref ref="file-warn"/>

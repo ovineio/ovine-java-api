@@ -37,6 +37,8 @@ rtadmin:
     log-exclude-path: /user/password:POST;/stat/data:* # 系统日志排除的路径（如果是通配地址使用$）,格式：路径：请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式)
     #系统日志不记录日志的字段，格式： 请求路径（如果是通配地址使用$）:请求方式,如果请求方式包含多个中间使用逗号隔开(*表示不限制请求方式):字段列表(中间使用逗号隔开),多个请求中间使用
     log-record-exclude-field: /user/login:POST:password,code;/system/user/item/$:*:password
+  user:
+    default-avatar: http://static.igroupes.com/default_avatar.jpg
 
   file-store:
     type: com.igroupes.rtadmin.file.core.SimpleFileStore # 类全名

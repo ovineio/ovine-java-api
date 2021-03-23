@@ -83,9 +83,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginUserHandlerInterceptorAdapter()).addPathPatterns("/**");
-        registry.addInterceptor(systemLogHandlerInterceptorAdapter()).addPathPatterns("/**");
-        registry.addInterceptor(limitHandlerInterceptorAdapter()).addPathPatterns("/**");
+        registry.addInterceptor(loginUserHandlerInterceptorAdapter()).addPathPatterns("/**").excludePathPatterns("/rpc/**");
+        registry.addInterceptor(systemLogHandlerInterceptorAdapter()).addPathPatterns("/**").excludePathPatterns("/rpc/**");
+        registry.addInterceptor(limitHandlerInterceptorAdapter()).addPathPatterns("/**").excludePathPatterns("/rpc/**");
     }
 
 

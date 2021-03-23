@@ -34,24 +34,17 @@
 
             UNION ALL
 
-            SELECT a.pt, 0 register_count, 0 login_count,SUM(b.cnt)  show_count  , 0 show_user_count, 0 user_count
-            FROM (
-            SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM system_user_stat WHERE operate = 100001
-            GROUP BY pt
-            ) a
-            JOIN  (
-            SELECT SUBSTR(add_time,1,10) pt , COUNT(1) cnt FROM system_user_stat WHERE operate = 100001
-            GROUP BY pt
-            ) b
-            ON a.pt >= b.pt
-            where 1 = 1
-            <if test="startDate!=null and startDate!=''">
-                and a.pt >= #{startDate}
-            </if>
-            <if test="endDate!=null and endDate!=''">
-                and a.pt &lt;= #{endDate}
-            </if>
-            GROUP BY a.pt
+        SELECT SUBSTR(add_time,1,10) pt , 0 register_count, 0 login_count, count( user_id) show_count, 0 show_user_count ,0 user_count
+        FROM `system_user_stat`
+        WHERE operate = 100001
+        <if test="startDate!=null and startDate!=''">
+            and SUBSTR(add_time,1,10) >= #{startDate}
+        </if>
+        <if test="endDate!=null and endDate!=''">
+            and SUBSTR(add_time,1,10) &lt;= #{endDate}
+        </if>
+        GROUP BY pt
+
 
 
             UNION ALL
@@ -100,11 +93,4 @@
 
     </select>
 
-    <select id="getShowCount" resultType="java.lang.Integer">
-        SELECT  COUNT(id) cnt FROM system_user_stat WHERE operate = 100001
-        <if test="endDate!=null and endDate!=''">
-            and SUBSTR(add_time,1,10) &lt;= #{endDate}
-        </if>
-
-    </select>
 </mapper>

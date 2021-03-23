@@ -11,6 +11,7 @@
         left join system_perm c
         on b.perm_id = c.id
         where a.is_del = 0 and (b.is_del = 0 or b.is_del is null) and (c.is_del = 0 or c.is_del is null)
+          and c.id is not null
           and parent_chain like CONCAT(#{curParentChain}, '%')
     </select>
 

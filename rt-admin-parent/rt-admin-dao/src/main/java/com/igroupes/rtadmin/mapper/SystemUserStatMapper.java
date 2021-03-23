@@ -13,5 +13,4 @@ public interface SystemUserStatMapper extends BaseMapper<SystemUserStatEntity>{
 
 
     Integer getUserCount(@Param("endDate") String endDate);
-    Integer getShowCount(@Param("endDate") String endDate);
 }
