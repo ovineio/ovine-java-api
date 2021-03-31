@@ -38,7 +38,7 @@
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-beanutils.version>1.9.1</commons-beanutils.version>
         <commons-io.version>2.6</commons-io.version>
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <lombok.version>1.16.20</lombok.version>
         <servlet-api.version>2.5</servlet-api.version>
         <mybatis-plus-boot-starter.version>3.2.0</mybatis-plus-boot-starter.version>
